@@ -1,15 +1,26 @@
-// Register your custom element directly into the game's element object
-elements.magic_slime = {
-    color: "#c21d80",         // The hex color code of your element
-    behavior: behaviors.LIQUID, // How it moves (POWDER, LIQUID, GAS, SOLID, WALL, etc.)
-    category: "liquids",      // Which menu tab it appears in
-    viscosity: 50,            // How slow or fast it flows
-    density: 1200,            // Used to determine if it sinks or floats in other liquids
-    state: "liquid",          // The starting state of matter
+// Give your mod an internal name registry
+mods.magic_slime_addon = {
+    name: "Magic Slime Addon",
+    author: "Thatoneguy6079",
+    description: "Adds a custom magic slime element!",
+    version: "1.0",
     
-    // Define reactions when it touches other elements
-    reactions: {
-        "water": { elem1: null, elem2: "acid" }, // Turns into acid when touching water
-        "fire": { elem1: "steam", elem2: null }  // Vaporizes into steam when heated
+    // This function forces Sandboxels to wait until the game is ready before injecting
+    run: function() {
+        elements.magic_slime = {
+            color: "#c21d80",
+            behavior: behaviors.LIQUID,
+            category: "liquids",
+            viscosity: 50,
+            density: 1200,
+            state: "liquid",
+            reactions: {
+                "water": { elem1: null, elem2: "acid" },
+                "fire": { elem1: "steam", elem2: null }
+            }
+        };
+        
+        // This registers your modded element so the UI builds it into the search box and tabs
+        createElement(elements.magic_slime, "magic_slime");
     }
 };
